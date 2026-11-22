@@ -80,13 +80,10 @@ pub fn check_reaction(
             }
             if let Action::Discard(discard) = action {
                 let called = discard.tile;
-                // TODO(summivox): rust (if-let-chain)
-                if let Some(chii) = Chii::from_tiles(own0, own1, called) {
-                    if chii.is_in_hand(hand) {
-                        cache.meld[reactor_i] = Some(Meld::Chii(chii));
-                    } else {
-                        return Err(InvalidChii(own0, own1, called));
-                    }
+                if let Some(chii) = Chii::from_tiles(own0, own1, called)
+                    && chii.is_in_hand(hand)
+                {
+                    cache.meld[reactor_i] = Some(Meld::Chii(chii));
                 } else {
                     return Err(InvalidChii(own0, own1, called));
                 }
@@ -101,13 +98,10 @@ pub fn check_reaction(
             if let Action::Discard(discard) = action {
                 let called = discard.tile;
                 let dir = actor.sub(reactor);
-                // TODO(summivox): rust (if-let-chain)
-                if let Some(pon) = Pon::from_tiles_dir(own0, own1, called, dir) {
-                    if pon.is_in_hand(hand) {
-                        cache.meld[reactor_i] = Some(Meld::Pon(pon));
-                    } else {
-                        return Err(InvalidPon(own0, own1, called));
-                    }
+                if let Some(pon) = Pon::from_tiles_dir(own0, own1, called, dir)
+                    && pon.is_in_hand(hand)
+                {
+                    cache.meld[reactor_i] = Some(Meld::Pon(pon));
                 } else {
                     return Err(InvalidPon(own0, own1, called));
                 }
@@ -231,11 +225,10 @@ pub fn resolve_reaction(
         if is_nagashi_mangan(state, actor) {
             // The last discard has not been committed to the river, but we still need to take it
             // into consideration!
-            // TODO(summivox): rust (if-let-chain)
-            if let Action::Discard(Discard { tile, .. }) = action {
-                if !tile.is_terminal() {
-                    return (ActionResult::Abort(AbortReason::WallExhausted), None);
-                }
+            if let Action::Discard(Discard { tile, .. }) = action
+                && !tile.is_terminal()
+            {
+                return (ActionResult::Abort(AbortReason::WallExhausted), None);
             }
             return (ActionResult::Abort(AbortReason::NagashiMangan), None);
         }

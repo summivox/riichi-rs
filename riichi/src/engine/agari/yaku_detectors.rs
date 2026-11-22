@@ -352,11 +352,10 @@ fn detect_ankou(
         regular_wait.groups().filter(|g| matches!(g, HandGroup::Koutsu(_))).count() +
         melds.iter().filter(|m| m.is_closed()).count();
     // closed waiting koutsu also counts
-    // TODO(summivox): rust (if-let-chain)
-    if let Some(HandGroup::Koutsu(_)) = wait_group {
-        if agari_kind == AgariKind::Tsumo {
-            num_ankou_complete += 1;
-        }
+    if let Some(HandGroup::Koutsu(_)) = wait_group
+        && agari_kind == AgariKind::Tsumo
+    {
+        num_ankou_complete += 1;
     }
     match num_ankou_complete {
         4 => {

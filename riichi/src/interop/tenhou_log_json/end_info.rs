@@ -105,20 +105,19 @@ impl<'de> Visitor<'de> for EndInfoVisitor {
                 .ok_or_else(|| Error::custom("unrecognized result"))?;
             match abort_reason {
                 AbortReason::WallExhausted | AbortReason::NagashiMangan => {
-                    // TODO(summivox): rust (if-let-chain)
-                    if let Some(Value::Array(delta_arr)) = seq.next_element::<Value>()? {
-                        if delta_arr.len() == 4 {
-                            return Ok(TenhouEndInfo {
-                                result: ActionResult::Abort(abort_reason),
-                                overall_delta: [
-                                    delta_arr[0].as_i64().unwrap_or(0) as GamePoints,
-                                    delta_arr[1].as_i64().unwrap_or(0) as GamePoints,
-                                    delta_arr[2].as_i64().unwrap_or(0) as GamePoints,
-                                    delta_arr[3].as_i64().unwrap_or(0) as GamePoints,
-                                ],
-                                agari: vec![],
-                            });
-                        }
+                    if let Some(Value::Array(delta_arr)) = seq.next_element::<Value>()?
+                        && delta_arr.len() == 4
+                    {
+                        return Ok(TenhouEndInfo {
+                            result: ActionResult::Abort(abort_reason),
+                            overall_delta: [
+                                delta_arr[0].as_i64().unwrap_or(0) as GamePoints,
+                                delta_arr[1].as_i64().unwrap_or(0) as GamePoints,
+                                delta_arr[2].as_i64().unwrap_or(0) as GamePoints,
+                                delta_arr[3].as_i64().unwrap_or(0) as GamePoints,
+                            ],
+                            agari: vec![],
+                        });
                     }
                     if result_str == NONE_WAITING || result_str == ALL_WAITING {
                         return Ok(TenhouEndInfo {
@@ -147,7 +146,6 @@ impl<'de> Visitor<'de> for EndInfoVisitor {
         ) {
             // TODO(summivox): separate visitor for each TenhouAgariResult, (use RawValue?)
             let mut delta = [0; 4];
-            // TODO(summivox): rust (if-let-chain)
             if delta_arr.len() == 4 {
                 for i in 0..4 {
                     delta[i] = delta_arr[i].as_i64().unwrap_or(0) as GamePoints;

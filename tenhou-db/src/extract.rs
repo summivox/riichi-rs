@@ -51,7 +51,7 @@ pub fn process_zip_file<F>(zip_reader: impl Read + Seek, mut f: F) -> Result<()>
     let mut archive = zip::ZipArchive::new(zip_reader)?;
     let len = archive.len();
     let total = archive.file_names()
-        .filter(|name| name.ends_with(".html.gz")).count();
+        .filter(|name| name.as_ref().is_ok_and(|n| n.ends_with(".html.gz"))).count();
     let progress = ProgressBar::new(total as u64);
     let mut overall_result = Ok(());
     for file_index in 0..len {
@@ -62,7 +62,7 @@ pub fn process_zip_file<F>(zip_reader: impl Read + Seek, mut f: F) -> Result<()>
                 continue;
             }
         };
-        let name = zip_file.name().to_string();
+        let name = zip_file.name()?.into_owned();
         if !name.ends_with(".html.gz") { continue; }
         let file_result = archive_lines_from_file(&Utf8Path::new(&name), zip_file)
             .map(|entries| f(&name, &entries));

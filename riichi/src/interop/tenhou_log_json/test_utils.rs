@@ -20,7 +20,7 @@ pub fn run_a_round(
     let mut begin = lite.begin.clone();
     let mut missing_tiles = wall::get_missing_tiles_in_partial_wall(
         &recovered.known_wall, num_reds).iter_tiles().collect_vec();
-    missing_tiles[..].shuffle(&mut thread_rng());
+    missing_tiles[..].shuffle(&mut rand::rng());
     begin.wall = wall::fill_missing_tiles_in_partial_wall(
         &recovered.known_wall, missing_tiles.into_iter());
     log::debug!("{}", begin.wall.display());

@@ -66,8 +66,7 @@ impl<'a> AgariInput<'a> {
             wait_set,
 
             contributor,
-            // TODO(summivox): rust (is_some_with)
-            incoming_is_kan: state.core.incoming_meld.filter(|m| m.is_kan()).is_some(),
+            incoming_is_kan: state.core.incoming_meld.is_some_and(|m| m.is_kan()),
             action_is_kan: action.is_kan(),
             winning_tile: action.tile().unwrap(),  // assumed not NineKinds
 

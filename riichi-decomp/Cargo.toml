@@ -1,7 +1,7 @@
 [package]
 name = "riichi-decomp"
 version = "0.1.0"
-edition = "2021"
+edition.workspace = true
 
 authors = ["summivox <summivox@gmail.com>"]
 description = "Japanese Riichi Mahjong Waiting Hand Decomposition"
@@ -13,8 +13,8 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-itertools = "0.10"
-once_cell = "1.15"
+itertools.workspace = true
+once_cell = "1.21"
 sortnet = "0.1.0"
 
 # CLI

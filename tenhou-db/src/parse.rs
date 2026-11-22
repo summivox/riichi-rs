@@ -93,7 +93,7 @@ pub struct LogIdParts<'a> {
 ///     hash: "4735afd5",
 /// }));
 /// ```
-pub fn parse_log_id(id: &str) -> Option<LogIdParts> {
+pub fn parse_log_id(id: &str) -> Option<LogIdParts<'_>> {
     static LOG_ID_REGEX: Lazy<Regex> = Lazy::new(|| Regex::new(
         r#"(\d\d\d\d)(\d\d)(\d\d)(\d\d)\w*-(\w+)-(\w+)-(\w+)"#
     ).unwrap());

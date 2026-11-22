@@ -20,7 +20,7 @@ fn main() {
     {
         let mut c_map_gen = phf_codegen::Map::<u32>::new();
         for (k, v) in c_table.iter() {
-            c_map_gen.entry(*k, &format!("{}u64", v.packed()));
+            c_map_gen.entry(*k, format!("{}u64", v.packed()));
         }
         write!(map_file,
                "pub static C_TABLE: phf::Map<u32, u64> = \n{};\n",
@@ -29,7 +29,7 @@ fn main() {
     {
         let mut w_map_gen = phf_codegen::Map::<u32>::new();
         for (k, v) in w_table.iter() {
-            w_map_gen.entry(*k, &format!("{}u64", v.packed()));
+            w_map_gen.entry(*k, format!("{}u64", v.packed()));
         }
         write!(map_file,
                "pub static W_TABLE: phf::Map<u32, u64> = \n{};\n",

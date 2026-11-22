@@ -108,7 +108,7 @@ impl TileSet34 {
     }
 
     /// Iterates through all tiles in this tile set, in encoding order.
-    pub fn iter_tiles(&self) -> impl Iterator<Item=Tile> {
+    pub fn iter_tiles(&self) -> impl Iterator<Item=Tile> + use<> {
         self.0.into_iter().enumerate().flat_map(|(encoding, count)|
             itertools::repeat_n(
                 Tile::from_encoding(encoding as u8).unwrap(),

@@ -1,12 +1,12 @@
 [package]
 name = "riichi-analysis"
 version = "0.1.0"
-edition = "2021"
+edition.workspace = true
 
 [dependencies]
 
 anyhow = { workspace = true }
-polars = "0.46.0"
+polars = "0.55"
 
 serde = { workspace = true }
 serde_json = { workspace = true }

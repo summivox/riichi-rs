@@ -1,7 +1,7 @@
 [package]
 name = "riichi-elements"
 version = "0.1.0"
-edition = "2021"
+edition.workspace = true
 
 authors = ["summivox <summivox@gmail.com>"]
 description = "Building blocks of Japanese Riichi Mahjong"
@@ -13,13 +13,13 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bitfield-struct = "0.1.7"
-derive_more = "0.99.17"
-strum = { version = "0.24", default-features = false, features = ["derive"] }
+bitfield-struct = "0.13"
+derive_more = { version = "2.1", default-features = false, features = ["full"] }
+strum = { version = "0.28", default-features = false, features = ["derive"] }
 
 # workspace shared
 itertools = { workspace = true, default-features = false }
-serde = { workspace = true, default-features = false, features = ["derive"], optional = true }
+serde = { workspace = true, default-features = false, features = ["derive", "alloc"], optional = true }
 
 
 [dev-dependencies]

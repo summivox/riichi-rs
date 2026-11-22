@@ -60,7 +60,7 @@ fn main() -> io::Result<()> {
 
     let mut c_map_gen = phf_codegen::Map::<u32>::new();
     for (k, v) in c_table.iter() {
-        c_map_gen.entry(*k, &format!("{}u64", v.packed()));
+        c_map_gen.entry(*k, format!("{}u64", v.packed()));
     }
     let mut map_file = BufWriter::new(File::create(PathBuf::from("data/c.rs"))?);
     write!(map_file,

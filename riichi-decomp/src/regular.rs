@@ -81,7 +81,7 @@ impl RegularWait {
     }
 
     /// Iterate all complete groups in this hand decomposition.
-    pub fn groups(&self) -> impl Iterator<Item = HandGroup> {
+    pub fn groups(&self) -> impl Iterator<Item = HandGroup> + use<> {
         self.raw_groups.map(|x| HandGroup::from_packed(x).unwrap())
     }
 

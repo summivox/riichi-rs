@@ -111,9 +111,7 @@ fn fu_han_formula(fu: u8, han: u8) -> GamePoints {
     fu as GamePoints * (1 << (2 + han as GamePoints))
 }
 
-// TODO(summivox): rust (DivCeil)
-
-fn round_fu_up(fu: u8) -> u8 { (fu + 9) / 10 * 10 }
+fn round_fu_up(fu: u8) -> u8 { fu.div_ceil(10) * 10 }
 
 fn round_points_up(points: GamePoints) -> GamePoints { (points + 99) / 100 * 100 }
 
@@ -134,7 +132,6 @@ fn calc_regular_fu(
         [match extra_fu { 0 => 0, _ => 1 }]
         [match agari_kind { Ron => 0, Tsumo => 1 }]
         [is_closed as usize];
-    // TODO(summivox): rust (DivCeil)
     round_fu_up(fu_before_rounding)
 }
 

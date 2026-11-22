@@ -34,9 +34,10 @@ pub fn mt_from_seed(seed: &[u32; MT19937_SEED_SIZE]) -> MT19937 {
 }
 
 /// Decodes MT19937 seed from little-endian base-64-encoded string.
-pub fn seed_from_base64(base64: &str) -> Result<[u32; MT19937_SEED_SIZE], base64::DecodeError> {
+pub fn seed_from_base64(base64: &str) -> Result<[u32; MT19937_SEED_SIZE], base64::DecodeSliceError> {
+    use base64::Engine as _;
     let mut seed_u8 = [0u8; MT19937_SEED_SIZE * 4];
-    base64::decode_config_slice(base64, base64::STANDARD, &mut seed_u8)?;
+    base64::engine::general_purpose::STANDARD.decode_slice(base64, &mut seed_u8)?;
     assert_eq!(seed_u8.len(), MT19937_SEED_SIZE * 4);
     Ok(u8_to_u32_le(&seed_u8))
 }

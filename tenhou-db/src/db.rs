@@ -48,7 +48,7 @@ pub fn is_archive_in_db(
         SELECT COUNT(*) FROM archives WHERE filename = ?;
     "#)?;
     let mut rows = query.query_map((filename,), |row| {
-        let count: usize = row.get(0)?;
+        let count: i64 = row.get(0)?;
         Ok(count)
     })?;
     Ok(rows.next().context("bad query")?? > 0)

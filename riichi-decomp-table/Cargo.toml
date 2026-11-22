@@ -1,7 +1,7 @@
 [package]
 name = "riichi-decomp-table"
 version = "0.1.0"
-edition = "2021"
+edition.workspace = true
 
 authors = ["summivox <summivox@gmail.com>"]
 description = "Lookup Table Generation for `riichi-decomp`"
@@ -13,9 +13,9 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-derive_more = "0.99"
-itertools = "0.10"
-rustc-hash = "1"
+derive_more = { version = "2.1", features = ["full"] }
+itertools.workspace = true
+rustc-hash = "2.1"
 
 # workspace shared
 nanovec.workspace = true

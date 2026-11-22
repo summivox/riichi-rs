@@ -193,10 +193,10 @@ pub fn fill_missing_tiles_in_partial_wall(
 
 pub struct WallDisplay<'a>(&'a Wall);
 pub trait WallDisplayMethod {
-    fn display(&self) -> WallDisplay;
+    fn display(&self) -> WallDisplay<'_>;
 }
 impl WallDisplayMethod for Wall {
-    fn display(&self) -> WallDisplay { WallDisplay(self) }
+    fn display(&self) -> WallDisplay<'_> { WallDisplay(self) }
 }
 impl<'a> Display for WallDisplay<'a> {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {
@@ -212,10 +212,10 @@ impl<'a> Display for WallDisplay<'a> {
 
 pub struct PartialWallDisplay<'a>(&'a PartialWall);
 pub trait PartialWallDisplayMethod {
-    fn display(&self) -> PartialWallDisplay;
+    fn display(&self) -> PartialWallDisplay<'_>;
 }
 impl PartialWallDisplayMethod for PartialWall {
-    fn display(&self) -> PartialWallDisplay { PartialWallDisplay(self) }
+    fn display(&self) -> PartialWallDisplay<'_> { PartialWallDisplay(self) }
 }
 impl<'a> Display for PartialWallDisplay<'a> {
     fn fmt(&self, f: &mut Formatter<'_>) -> core::fmt::Result {

@@ -138,7 +138,7 @@ pub fn w_entry_iter_alts(key: u32, alts: WAlts) -> impl Iterator<Item = WaitingP
 }
 
 pub(crate) mod details {
-    use crate::utils::*;
+    
     use super::*;
 
     /// Attempts to place a waiting pattern at the position, and see if we are not attempting to use
